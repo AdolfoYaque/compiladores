@@ -1,0 +1,79 @@
+package mx.com.modelo.sintactico;
+
+import mx.com.control.Token;
+import mx.com.GUI.Front;
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import javax.swing.JLabel;
+
+
+public class Parser {
+
+    private Hashtable Tabla_De_Trancision;
+    private ArrayList<String> ComparaNT;
+    private ArrayList TAGS;
+    private Hashtable IDS_NT;
+    private Hashtable Contenido_NT;
+    private Hashtable NULL_NT;
+
+    String[] NT = {"Banuer_Class", "sentencias1", "sentencias2", "sentencias-",
+        "acciones1", "acciones2", "acciones3", "VACIO", "acciones'1",
+        "acciones'2", "OM", "OM-", "escritura", "declaracion", "repeticion", "condicion",
+        "con'-", "con'", "opcion1", "opcion2", "opcion3", "OM'"
+    };
+    String[][] Content = {
+        {"1", "2", "3", "4", "sentencias", "5"}, {"declaraciones"}, {"acciones"},
+        {"-"}, {"50", "8", "acciones'", "7", "sentencias"}, {"escritura"},
+        {"repeticion"}, {"VACIO"}, {"opcion", "opmat", "sentencias"}, {"9", "2", "6", "3", "sentencias"},
+        {"15", "opmat'"}, {"-"}, {"10", "11", "2", "51", "3", "7", "sentencias"},
+        {"6", "50", "7", "sentencias"}, {"12", "2", "condicion", "3", "4", "sentencias", "5", "sentencias"},
+        {"opcion", "13", "opcion", "con'"}, {"-"}, {"14", "condicion"}, {"50"}, {"52"}, {"53"}, {"opcion", "opmat"}};
+
+    public Parser() {
+        TAGS = new ArrayList();
+        Cargar_id_NT();//Carga la tabla (Numero de no terminal, Nombre de no terminal)
+        Cargar_NT_Content();
+        cargarTablaDeTrancision();// carga la tabla de trancisiones
+        ComparaNT = new ArrayList<>();
+        ComparaNT.add("S0");       
+    }
+
+    private void cargarTablaDeTrancision() {
+        Tabla_De_Trancision = new Hashtable();
+        Tabla_De_Trancision.put("S0,1", "1");
+        Tabla_De_Trancision.put("Banuer_Class,1", "1");
+        Tabla_De_Trancision.put("declaraciones,6", "14");
+        Tabla_De_Trancision.put("acciones,50", "5");
+        Tabla_De_Trancision.put("acciones,12", "7");
+        Tabla_De_Trancision.put("acciones,10", "6");
+        Tabla_De_Trancision.put("acciones',53", "9");
+        Tabla_De_Trancision.put("acciones',52", "9");
+        Tabla_De_Trancision.put("acciones',50", "9");
+        Tabla_De_Trancision.put("acciones',9", "10");
+        Tabla_De_Trancision.put("sentencias,50", "3");
+        Tabla_De_Trancision.put("sentencias,12", "3");
+        Tabla_De_Trancision.put("sentencias,10", "3");
+        Tabla_De_Trancision.put("sentencias,6", "2");
+        Tabla_De_Trancision.put("sentencias,7", "4");
+        Tabla_De_Trancision.put("sentencias,5", "4");
+        Tabla_De_Trancision.put("escritura,10", "13");
+        Tabla_De_Trancision.put("repeticion,12", "15");
+        Tabla_De_Trancision.put("condicion,53", "16");
+        Tabla_De_Trancision.put("condicion,52", "16");
+        Tabla_De_Trancision.put("condicion,50", "16");
+        Tabla_De_Trancision.put("con',14", "18");
+        Tabla_De_Trancision.put("con',3", "17");
+        Tabla_De_Trancision.put("opcion,53", "21");
+        Tabla_De_Trancision.put("opcion,52", "20");
+        Tabla_De_Trancision.put("opcion,50", "19");
+        Tabla_De_Trancision.put("opmat,50", "12");
+        Tabla_De_Trancision.put("opmat,15", "11");
+        Tabla_De_Trancision.put("opmat,12", "12");
+        Tabla_De_Trancision.put("opmat,10", "12");
+        Tabla_De_Trancision.put("opmat,7", "12");
+        Tabla_De_Trancision.put("opmat,6", "12");
+        Tabla_De_Trancision.put("opmat',53", "22");
+        Tabla_De_Trancision.put("opmat',52", "22");
+        Tabla_De_Trancision.put("opmat',50", "22");
+    }
